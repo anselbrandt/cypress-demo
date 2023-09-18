@@ -1,11 +1,15 @@
 import "./App.css";
 import logo from "./logo.png";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 
 function App() {
-  const { isLoading, error, data, isFetching } = useQuery("facts", () =>
-    fetch("https://api.chucknorris.io/jokes/random").then((res) => res.json())
-  );
+  const { isLoading, error, data, isFetching } = useQuery({
+    queryKey: ["facts"],
+    queryFn: () =>
+      fetch("https://api.chucknorris.io/jokes/random").then((res) =>
+        res.json()
+      ),
+  });
 
   if (isLoading) return <>"Loading..."</>;
 
